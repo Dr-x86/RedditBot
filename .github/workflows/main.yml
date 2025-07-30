@@ -1,0 +1,41 @@
+name: Ejecutar Script
+
+on:
+  # Ejecutar cada 3 horas
+  schedule:
+    - cron: '0 */3 * * *'
+  # Permitir ejecución manual desde la interfaz de GitHub Actions
+  workflow_dispatch:
+
+jobs:
+  run-python-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # cambia a la versión que necesites
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Ejecutar el script de Python
+        env:
+          # Carga tus secrets definidos en Settings > Secrets de tu repo
+          TELEGRAM_BOT: ${{ secrets.TELEGRAM_BOT }}
+          MY_CHAT: ${{ secrets.MY_CHAT }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_DB: ${{ secrets.SUPABASE_DB }}
+          
+          TOKEN_FB1: ${{ secrets.TOKEN_FB1 }}
+          
+          
+        run: |
+          echo "Iniciando script..."
+          python main.py

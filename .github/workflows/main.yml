@@ -39,3 +39,12 @@ jobs:
         run: |
           echo "Iniciando script..."
           python main.py
+
+      - name: Keep repo alive
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          date > timestamp.txt
+          git add timestamp.txt
+          git commit -m "chore: keep repo alive !!" || echo "No changes to commit"
+          git push

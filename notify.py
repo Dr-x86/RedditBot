@@ -8,7 +8,7 @@ TELEGRAM_BOT = os.getenv("TELEGRAM_BOT")
 # GROUP_CHAT_ID = os.getenv('GROUP')
 
 def Me(msg):
-    URL = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+    URL = f"https://api.telegram.org/bot{TELEGRAM_BOT}/sendMessage"
     parametros = {
         "chat_id": CHAT_ID,
         "text": msg,

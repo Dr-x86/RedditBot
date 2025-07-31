@@ -104,7 +104,7 @@ if __name__ == "__main__":
     print("Inicio del script")
     
     """Args: page_id: str | access_token: str  | subreddits: list | tema: str"""
-    bot_cut = Bot("715085511692670", TOKEN_FB1, ["wholesomememes","memes"],"Perfectly Cut Screams")
+    bot_cut = Bot("715085511692670", TOKEN_FB1, ["wholesomememes","memes","crappyoffbrands"],"Perfectly Cut Screams")
     instancia_ejecucion(bot_cut)
     
     print("Fin del script")

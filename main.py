@@ -3,6 +3,7 @@ import random
 from apis import reddit_post
 from apis import waifu_datos
 from database import agregar
+import notify
 
 import os
 from dotenv import load_dotenv

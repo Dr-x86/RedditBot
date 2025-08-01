@@ -72,32 +72,47 @@ def instancia_ejecucion(bot: Bot) -> None:
         Datos del contenido que se publica,
         Respuesta de la API de meta,
         Notificar de posibles errores.
-    """
-    contenido = bot.buscar_contenido()
+    """    
+    try:
+        contenido = bot.buscar_contenido()
     
-    if contenido:
-        print(f">> Bot: [{bot.tema}] encontro contenido")
+        if not contenido:
+            raise ValueError("No se encontró contenido")
+    
+        print(f">> Bot: [{bot.tema}] encontró contenido")
+    
         post = bot.publicar(contenido).json()
-        
-        if post and 'id' in post:
-            print(f">> Bot: [{bot.tema}] publico contenido")
-            
-            if [x for x in ['(oc)','my','by me','mine','[oc]','i made','i did','i make'] if x in contenido.get('title').lower()]: # Honor a quien honor merece
-                print(f">> Bot: [{bot.tema}] comento ")
-                bot.comentar(post['id'],f"Credits: {contenido.get('author')}")
-            else:
-                print(f">> Bot: [{bot.tema}] comento ")
-                bot.comentar(post['id'],f"Suggested by: {contenido.get('author')}")
-            
-            agregar(contenido.get('url'),'set_redditbot') # Una mierda que te digo
-            print(f">> Bot: [{bot.tema}] registró la url")
-            
-        else:
-            print(f">> Bot: [{bot.tema}] no pudo publicar \n>> Notificando... \n>> Detalles: {post}")
-            notify.Me(f">> Bot: [{bot.tema}] no pudo publicar \n>> Notificando... \n>> Detalles: {post}")
-    else:
-        print(f">> Bot no pudo encontrar contenido \n>> Notificando... \n>> Detalles: {contenido}")
-        notify.Me(f">> Bot no pudo encontrar contenido \n>> Notificando... \n>> Detalles: {contenido}")
+        if not post or 'id' not in post:
+            raise RuntimeError(f"Publicación fallida: {post}")
+    
+        print(f">> Bot: [{bot.tema}] publicó contenido")
+    
+        title_lower = contenido.get('title', '').lower()
+        mensaje = (
+            f"Credits: {contenido.get('author')}" if any(
+                x in title_lower for x in ['(oc)', 'my', 'by me', 'mine', '[oc]', 'i made', 'i did', 'i make']
+            ) else f"Suggested by: {contenido.get('author')}"
+        )
+    
+        bot.comentar(post['id'], mensaje)
+        print(f">> Bot: [{bot.tema}] comentó")
+    
+        agregar(contenido.get('url'), 'set_redditbot')
+        print(f">> Bot: [{bot.tema}] registró la URL")
+    
+    except ValueError as ve:
+        print(f">> Bot: [{bot.tema}] no encontró contenido: {ve}")
+        notify.Me(f">> Bot no encontró contenido: {ve}")
+    
+    except RuntimeError as re:
+        print(f">> Bot: [{bot.tema}] no pudo publicar: {re}")
+        notify.Me(f">> Bot: [{bot.tema}] no pudo publicar: {re}")
+    
+    except Exception as e:
+        print(f">> Error inesperado: {e}")
+        notify.Me(f">> Error inesperado: {e}")
+
+    
 
 
 if __name__ == "__main__":

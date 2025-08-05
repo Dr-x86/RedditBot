@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TOKEN_FB1 = os.getenv("TOKEN_FB1")
-
+TOKEN_FB2 = os.getenv("TOKEN_FB2")
 
 class Bot():
     def __init__(self, page_id: str, access_token: str, subreddits: list, tema: str)-> None:
@@ -42,7 +42,7 @@ class Bot():
         return self._subir_facebook(url, data)
     
     def buscar_contenido(self) -> dict:
-        """Esta funcion obtiene los datos nuevos de la API"""
+        """ Esta funcion obtiene los datos nuevos de la API """
         return reddit_post(self.subs)
     
     def comentar(self, post_id: str, mensaje: str) -> None:
@@ -61,6 +61,12 @@ class Bot():
     
     def buscar_video(self) -> set:
         return reddit_videos(self.subs)    
+
+
+
+def instancia_ia(bot: Bot) -> None:
+    pass
+
 
 
 def instancia_ejecucion(bot: Bot) -> None:
@@ -97,30 +103,42 @@ def instancia_ejecucion(bot: Bot) -> None:
         bot.comentar(post['id'], mensaje)
         print(f">> Bot: [{bot.tema}] comentó")
     
-        agregar(contenido.get('url'), 'set_redditbot')
+        
+        # Formatea los datos en un diccionario que pueda ser insertado en la base de datos
+        datos_bot = {
+            'url': contenido.get('url'),
+            'tematica': bot.tema
+        } 
+        agregar(datos_bot, 'set_redditbot')
+        
         print(f">> Bot: [{bot.tema}] registró la URL")
     
     except ValueError as ve:
         print(f">> Bot: [{bot.tema}] no encontró contenido: {ve}")
-        notify.Me(f">> Bot no encontró contenido: {ve}")
+        notify.Me(f">> Bot [{bot.tema}] no encontró contenido: {ve}")
     
     except RuntimeError as re:
         print(f">> Bot: [{bot.tema}] no pudo publicar: {re}")
         notify.Me(f">> Bot: [{bot.tema}] no pudo publicar: {re}")
     
     except Exception as e:
-        print(f">> Error inesperado: {e}")
-        notify.Me(f">> Error inesperado: {e}")
+        print(f">> Bot: [{bot.tema}] Error inesperado: {e}")
+        notify.Me(f">> Bot: [{bot.tema}] Error inesperado: {e}")
 
-    
+
 
 
 if __name__ == "__main__":
     print("Inicio del script")
     
     """Args: page_id: str | access_token: str  | subreddits: list | tema: str"""
+    
     bot_cut = Bot("715085511692670", TOKEN_FB1, ["wholesomememes","memes","crappyoffbrands"],"Perfectly Cut Screams")
     instancia_ejecucion(bot_cut)
+    
+    
+    # bot_ani = Bot("595985150275800", TOKEN_FB2, ["Fitmoe","CatgirlSFW","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens","GiantAnimeGirls"], "Anime, Pixel-Art")
+    # instancia_ejecucion(bot_ani)
     
     print("Fin del script")
     

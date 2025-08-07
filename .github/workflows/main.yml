@@ -33,6 +33,7 @@ jobs:
           SUPABASE_DB: ${{ secrets.SUPABASE_DB }}
           
           TOKEN_FB1: ${{ secrets.TOKEN_FB1 }} # <-- Posiblemente haya más de esto a futuro
+          TOKEN_FB2: ${{ secrets.TOKEN_FB2 }} # <-- Posiblemente haya más de esto a futuro
         
         run: |
           echo "Iniciando script..."

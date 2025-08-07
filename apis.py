@@ -89,39 +89,3 @@ def reddit_videos(subs: List[str], max_intentos=550) -> set: # Regresa data nuev
             
     print("[VIDEOS] - ERROR: NO SE ENCONTRARON VIDEOS") # Si llega hasta aqui, no se encontraron nuevos videos.
     return (None, None)
-
-def waifu_datos(max_intentos=650) -> dict:
-    """ No recibe nada, Regresa un diccionario con datos, None si no encuentra nada"""
-    
-    url = 'https://api.waifu.im/search'
-    params = {'included_tags': ['oppai', 'waifu']}
-
-    intentos = 0
-    while intentos < max_intentos:
-        try:
-            response = requests.get(url, params=params, timeout=5)
-            response.raise_for_status()
-    
-            json_data = response.json()
-            if not json_data:
-                intentos += 1
-                continue
-                
-            if not verificar(json_data['images'][0]['url'],'set_redditbot'): # True su ya se encuentra en la db, not para verificar que sea nueva
-                break
-            
-        except Exception as e:
-            print(f"Error con API Waifu: {e}")
-    
-    if intentos == max_intentos and not json_data:
-        print("[API] - Waifu. Error grave, no se consiguio una url nueva de la API ")
-        return None
-    
-    image = json_data['images'][0]
-    data = {
-        'url': image['url'],
-        'title': image['tags'][0]['name'] if image['tags'] else 'Greetings!!',
-        'author': image['artist']['name'] if image['artist'] else 'desconocido'
-    }
-    
-    return data

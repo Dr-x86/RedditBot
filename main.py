@@ -62,13 +62,6 @@ class Bot():
     def buscar_video(self) -> set:
         return reddit_videos(self.subs)    
 
-
-
-def instancia_ia(bot: Bot) -> None:
-    pass
-
-
-
 def instancia_ejecucion(bot: Bot) -> None:
     """ 
     No hay valores de retorno, hay un unico parametro el Bot instanciado
@@ -116,17 +109,25 @@ def instancia_ejecucion(bot: Bot) -> None:
     except ValueError as ve:
         print(f">> Bot: [{bot.tema}] no encontró contenido: {ve}")
         notify.Me(f">> Bot [{bot.tema}] no encontró contenido: {ve}")
+        
+        exit(1)
+        
+    except requests.exceptions.HTTPError as he:
+        print(f">> Bot: [{bot.tema}] Error HTTP al publicar: {he}")
+        notify.Me(f">> Bot: [{bot.tema}] Error HTTP al publicar: {he}")
+        
+        exit(1)  # esto marca el job como fallido
     
     except RuntimeError as re:
         print(f">> Bot: [{bot.tema}] no pudo publicar: {re}")
         notify.Me(f">> Bot: [{bot.tema}] no pudo publicar: {re}")
+        
         # Salida de emergencia, para identificar el código de error
         exit(1)
     
     except Exception as e:
         print(f">> Bot: [{bot.tema}] Error inesperado: {e}")
         notify.Me(f">> Bot: [{bot.tema}] Error inesperado: {e}")
-
 
 
 
@@ -138,8 +139,7 @@ if __name__ == "__main__":
     bot_cut = Bot("715085511692670", TOKEN_FB1, ["wholesomememes","memes","crappyoffbrands"],"Perfectly Cut Screams")
     instancia_ejecucion(bot_cut)
     
-    # bot_ani = Bot("595985150275800", TOKEN_FB2, ["Fitmoe","CatgirlSFW","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens","GiantAnimeGirls"], "Anime, Pixel-Art")
-    # instancia_ejecucion(bot_ani)
+    bot_ani = Bot("595985150275800", TOKEN_FB2, ["Fitmoe","CatgirlSFW","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens","GiantAnimeGirls"], "Hourly Waifus")
+    instancia_ejecucion(bot_ani)
     
     print("Fin del script")
-    

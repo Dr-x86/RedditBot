@@ -1,10 +1,6 @@
 import requests
-import os
-from dotenv import load_dotenv
-load_dotenv()
+from config import TELEGRAM_BOT, CHAT_ID
 
-CHAT_ID = os.getenv("MY_CHAT")
-TELEGRAM_BOT = os.getenv("TELEGRAM_BOT")
 # GROUP_CHAT_ID = os.getenv('GROUP')
 
 def Me(msg):

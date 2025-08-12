@@ -1,15 +1,11 @@
 import requests
 import random
-from apis import reddit_post
-from database import agregar
 import notify
 
-import os
-from dotenv import load_dotenv
-load_dotenv()
+from apis import reddit_post
+from database import agregar
+from config import TOKEN_FB1, TOKEN_FB2
 
-TOKEN_FB1 = os.getenv("TOKEN_FB1")
-TOKEN_FB2 = os.getenv("TOKEN_FB2")
 
 class Bot():
     def __init__(self, page_id: str, access_token: str, subreddits: list, tema: str)-> None:
@@ -81,7 +77,7 @@ def instancia_ejecucion(bot: Bot) -> None:
     
         post = bot.publicar(contenido).json()
         if not post or 'id' not in post:
-            raise RuntimeError(f"Publicación fallida: {post}")
+            raise RuntimeError(f"Publicación fallida")
     
         print(f">> Bot: [{bot.tema}] publicó contenido")
     
@@ -103,26 +99,20 @@ def instancia_ejecucion(bot: Bot) -> None:
         } 
         agregar(datos_bot, 'set_redditbot')
         
-        print(f">> Bot: [{bot.tema}] registró la URL")
+        print(f">> Bot: [{bot.tema}] registró la URL\n")
     
     except ValueError as ve:
         print(f">> Bot: [{bot.tema}] no encontró contenido: {ve}")
         notify.Me(f">> Bot [{bot.tema}] no encontró contenido: {ve}")
         
-        exit(1)
-        
     except requests.exceptions.HTTPError as he:
         print(f">> Bot: [{bot.tema}] Error HTTP al publicar: {he}")
         notify.Me(f">> Bot: [{bot.tema}] Error HTTP al publicar: {he}")
-        
-        exit(1)  # esto marca el job como fallido
     
     except RuntimeError as re:
         print(f">> Bot: [{bot.tema}] no pudo publicar: {re}")
         notify.Me(f">> Bot: [{bot.tema}] no pudo publicar: {re}")
         
-        # Salida de emergencia, para identificar el código de error
-        exit(1)
     
     except Exception as e:
         print(f">> Bot: [{bot.tema}] Error inesperado: {e}")
@@ -138,7 +128,7 @@ if __name__ == "__main__":
     bot_cut = Bot("715085511692670", TOKEN_FB1, ["wholesomememes","memes","crappyoffbrands"],"Perfectly Cut Screams")
     instancia_ejecucion(bot_cut)
     
-    bot_ani = Bot("595985150275800", TOKEN_FB2, ["Fitmoe","CatgirlSFW","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens","GiantAnimeGirls"], "Hourly Waifus")
+    bot_ani = Bot("595985150275800", TOKEN_FB2, ["Fitmoe","kasaneteto","miku","CatgirlSFW","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens","GiantAnimeGirls"], "Hourly Waifus")
     instancia_ejecucion(bot_ani)
     
     print("Fin del script")

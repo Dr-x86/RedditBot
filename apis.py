@@ -18,7 +18,6 @@ def reddit_post(subs: List[str], max_intentos=550) -> dict: # Regresa data nueva
             respuesta = requests.get(url)
             respuesta.raise_for_status()
             struct = respuesta.json()
-            # print(struct)
             if not struct:
                 intentos += 1
                 continue

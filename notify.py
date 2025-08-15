@@ -1,7 +1,6 @@
 import requests
 from config import TELEGRAM_BOT, CHAT_ID
 
-# GROUP_CHAT_ID = os.getenv('GROUP')
 
 def Me(msg):
     URL = f"https://api.telegram.org/bot{TELEGRAM_BOT}/sendMessage"
@@ -13,6 +12,8 @@ def Me(msg):
     respuesta = requests.post(URL, data=parametros)
 
 """ 
+# GROUP_CHAT_ID = os.getenv('GROUP')
+
         AUN NO
 
 def Channel(IMAGE_URL,CAPTION = ''):

@@ -123,12 +123,17 @@ def instancia_ejecucion(bot: Bot) -> None:
 if __name__ == "__main__":
     print("Inicio del script")
     
-    """Args: page_id: str | access_token: str  | subreddits: list | tema: str"""
+    """ Args: page_id: str | access_token: str  | subreddits: list | tema: str """
     
     bot_cut = Bot("715085511692670", TOKEN_FB1, ["wholesomememes","memes","crappyoffbrands"],"Perfectly Cut Screams")
     instancia_ejecucion(bot_cut)
     
-    bot_ani = Bot("595985150275800", TOKEN_FB2, ["Fitmoe","kasaneteto","miku","CatgirlSFW","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens","GiantAnimeGirls"], "Hourly Waifus")
+    bot_ani = Bot("595985150275800", TOKEN_FB2, ["kasaneteto","miku","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens"], "Hourly Waifus")
+    # Cambios: Eliminado
+    # - Fitmoe 
+    # - CatgirlSFW
+    # - GiantAnimeGirls
+    
     instancia_ejecucion(bot_ani)
     
     print("Fin del script")

@@ -125,14 +125,18 @@ if __name__ == "__main__":
     
     """ Args: page_id: str | access_token: str  | subreddits: list | tema: str """
     
-    bot_cut = Bot("715085511692670", TOKEN_FB1, ["wholesomememes","memes","crappyoffbrands"],"Perfectly Cut Screams")
+    bot_cut = Bot("715085511692670", TOKEN_FB1, ["cursedia","cursedimages","crappyoffbrands"],"Perfectly Cut Screams")
     instancia_ejecucion(bot_cut)
     
-    bot_ani = Bot("595985150275800", TOKEN_FB2, ["kasaneteto","miku","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens"], "Hourly Waifus")
+    bot_ani = Bot("595985150275800", TOKEN_FB2, ["kasaneteto","miku","maau","repollitos_criptidos","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens"], "Hourly Waifus")
+    
     # Cambios: Eliminado
     # - Fitmoe 
     # - CatgirlSFW
     # - GiantAnimeGirls
+    # Agregado:
+        # - MAAU
+        # - repollitos_criptidos
     
     instancia_ejecucion(bot_ani)
     

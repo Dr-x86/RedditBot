@@ -85,7 +85,7 @@ def instancia_ejecucion(bot: Bot) -> None:
         mensaje = (
             f"Credits: {contenido.get('author')}" if any(
                 x in title_lower for x in ['(oc)', 'my', 'by me', 'mine', '[oc]', 'i made', 'i did', 'i make']
-            ) else f"Suggested by: {contenido.get('author')}"
+            ) else f"Thanks to: {contenido.get('author')}"
         )
     
         bot.comentar(post['id'], mensaje)
@@ -128,7 +128,8 @@ if __name__ == "__main__":
     bot_cut = Bot("715085511692670", TOKEN_FB1, ["cursedia","cursedimages","crappyoffbrands"],"Perfectly Cut Screams")
     instancia_ejecucion(bot_cut)
     
-    bot_ani = Bot("595985150275800", TOKEN_FB2, ["kasaneteto","miku","maau","repollitos_criptidos","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens"], "Hourly Waifus")
+    bot_ani = Bot("595985150275800", TOKEN_FB2, ["kasaneteto","miku","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens"], "Hourly Waifus")
+    instancia_ejecucion(bot_ani)
     
     # Cambios: Eliminado
     # - Fitmoe 
@@ -138,6 +139,5 @@ if __name__ == "__main__":
         # - MAAU
         # - repollitos_criptidos
     
-    instancia_ejecucion(bot_ani)
     
     print("Fin del script")

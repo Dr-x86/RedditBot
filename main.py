@@ -125,7 +125,7 @@ if __name__ == "__main__":
     
     """ Args: page_id: str | access_token: str  | subreddits: list | tema: str """
     
-    bot_cut = Bot("715085511692670", TOKEN_FB1, ["cursedia","cursedimages","crappyoffbrands"],"Perfectly Cut Screams")
+    bot_cut = Bot("715085511692670", TOKEN_FB1, ["cursedia","cursedimages","crappyoffbrands","wholesomememes"],"Perfectly Cut Screams")
     instancia_ejecucion(bot_cut)
     
     bot_ani = Bot("595985150275800", TOKEN_FB2, ["kasaneteto","miku","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens"], "Hourly Waifus")

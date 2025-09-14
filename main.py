@@ -128,7 +128,7 @@ if __name__ == "__main__":
     bot_cut = Bot("715085511692670", TOKEN_FB1, ["cursedimages","crappyoffbrands","wholesomememes","memes","shitposting","starterpacks"],"Perfectly Cut Screams")
     instancia_ejecucion(bot_cut)
     
-    bot_ani = Bot("595985150275800", TOKEN_FB2, ["kasaneteto","miku","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens"], "Hourly Waifus")
+    bot_ani = Bot("595985150275800", TOKEN_FB2, ["kasaneteto","hatsune","miku","animeGirls","AnimeGirlsTattoos","AnimeGirlsRaceQueens"], "Hourly Waifus")
     instancia_ejecucion(bot_ani)
     
     
